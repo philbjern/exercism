@@ -24,7 +24,6 @@ Challenges solved usin Python:
 - `rotational-cypher`
 - `secret-handshake`
 - `triangle`
-
 - `card-games`
 - `chaitanas-colossal-coaster`
 - `currency-exchange`
