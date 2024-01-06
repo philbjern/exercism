@@ -25,3 +25,16 @@ Challenges solved usin Python:
 - `secret-handshake`
 - `triangle`
 
+- `card-games`
+- `chaitanas-colossal-coaster`
+- `currency-exchange`
+- `diamond`
+- `ghost-gobble-arcade-game`
+- `guidos-gorgeous-lasagna`
+- `little-sisters-vocab`
+- `meltdown-mitigation`
+- `pangram`
+- `resistor-color-duo`
+- `rna-transcription`
+- `tisbury-treasure-hunt`
+- `wordy`
