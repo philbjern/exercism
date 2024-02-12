@@ -23,6 +23,8 @@ def recite(start_verse, end_verse):
                 line += ', and '
             line += gft
 
+        line += '.'
+
         lines.append(line)
         line = ''
 
