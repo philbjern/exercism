@@ -11,7 +11,7 @@ def recite(start_verse, end_verse):
 
     for num in range(1, 12):
         line = 'On the '
-        line += get_day_number(num)
+        line += get_day_string(num)
         line += ' day of Christmas my true love gave to me: '
 
         day_gifts = gifts[(len(gifts) - num):]
@@ -37,7 +37,7 @@ def recite(start_verse, end_verse):
     return res
 
 
-def get_day_number(day_number):
+def get_day_string(day_number):
     days_strings = ['first', 'second', 'third', 'fourth',
                     'fifth', 'sixth', 'seventh', 'eighth'
                     'ninth', 'tenth', 'eleventh', 'twelfth']
