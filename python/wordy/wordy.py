@@ -1,45 +1,69 @@
 def answer(question):
-    print(question)
-    answer = 0
+    parsed = []
+
     if question.startswith('What is') and question.endswith('?'):
         question = question[len('What is'):-1]
-        print(len(question))
-        if len(question) == 0:
-            raise ValueError('syntax error')
 
-        question = question.replace('multiplied by', 'multiplied_by')
-        question = question.replace('divided by', 'divided_by')
+    if len(question) == 0:
+        raise ValueError('syntax error')
 
-        words = question.strip().split()
-        print(words)
-        operation = None
-        supported_operations = ['plus', 'minus', 'multiplied_by', 'divided_by']
-        prev = ''
+    question = question.replace('multiplied by', 'multiplied_by')
+    question = question.replace('divided by', 'divided_by')
 
-        for index, expr in enumerate(words):
-            if index == 0:
-                answer = int(expr)
-                prev = 'NUM'
-            if index % 2 == 1:
-                # Operation
-                if expr not in supported_operations:
-                    raise ValueError('unknown operation')
-                operation = expr
+    words = question.strip().split()
+    last = None
 
-            elif index % 2 == 0:
-                # Operand
-                try:
-                    is(expr)
-                except err:
-                    raise ValueError('syntax error')
+    for expr in words:
+        if len(parsed) > 0:
+            last = parsed[-1]
 
-                if operation == 'plus':
-                    answer = answer + int(expr)
-                elif operation == 'minus':
-                    answer = answer - int(expr)
-                elif operation == 'multiplied_by':
-                    answer = answer * int(expr)
-                elif operation == 'divided_by':
-                    answer = answer / int(expr)
+        if expr.isnumeric():
+            if len(parsed) > 0 and is_number(last):
+                raise ValueError('syntax error')
+            else:
+                parsed.append(expr)
+        elif is_operation(expr):
+            op = getoperator(expr)
+            if op is None:
+                raise ValueError('unknown operation')
 
-    return answer
+            if is_parsed_operation(last):
+                raise ValueError('syntax error')
+
+            parsed.append(op)
+
+    if is_parsed_operation(parsed[-1]):
+        raise ValueError('syntax error')
+
+    res = eval(''.join(parsed))
+    print(''.join(parsed))
+    print(res)
+
+    return res
+
+
+def is_number(expr):
+    return expr.isnumeric()
+
+
+def is_operation(expr):
+    operations = ['plus', 'minus', 'multiplied_by', 'divided_by']
+    return expr in operations
+
+
+def is_parsed_operation(expr):
+    parsed_op = ['+', '-', '*', '/']
+    return expr in parsed_op
+
+
+def getoperator(expr):
+    if expr == 'plus':
+        return '+'
+    elif expr == 'minus':
+        return '-'
+    elif expr == 'multiplied_by':
+        return '*'
+    elif expr == 'divided_by':
+        return '/'
+    else:
+        return None
