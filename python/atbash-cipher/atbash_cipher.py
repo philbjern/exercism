@@ -11,7 +11,7 @@ def encode(plain_text):
             encoded += char
 
         if char.isalpha():
-            code = ord(char) - 97
+            code = ord(char) - ord('a')
             new_char = chr(ord('z') - code)
             encoded += new_char
         valid_char_count += 1
