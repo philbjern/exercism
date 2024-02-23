@@ -2,23 +2,23 @@ def prime(number):
     if number == 0:
         raise ValueError("there is no zeroth prime")
 
-    primes = []
-    i = 2
-    while len(primes) < number:
-        div_count = 0
-        for divs in range(1, i+1):
-            if i % divs == 0:
-                div_count += 1
-
-        if div_count == 2:
-            primes.append(i)
-            print(f'found prime: {i}')
-
-        div_count = 0
-        i += 1
-
+    primes = prime_sieve(104743)
     return primes[number - 1]
 
 
+def prime_sieve(number):
+    """Find n first primes using sieve of Eratosthenes"""
+    sieve = [True] * (number + 1)
+    sieve[0] = sieve[1] = False
+
+    for i in range(2, int(number ** 0.5) + 1):
+        if sieve[i]:
+            for j in range(i * i, number + 1, i):
+                sieve[j] = False
+
+    return [i for i in range(2, number + 1) if sieve[i]]
+
+
 if __name__ == "__main__":
-    print(prime(6))
+    # print(prime(6))
+    print(prime_sieve(6))
