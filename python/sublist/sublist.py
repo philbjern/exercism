@@ -22,38 +22,33 @@ def sublist(list_one, list_two):
     a = list_one
     b = list_two
 
-    print(a)
-    print(b)
-    if a == b:
+    if len(a) == 0 and len(b) == 0:
         return EQUAL
 
-    if contains_list(a, b):
+    if len(a) == 0 or len(b) == 0:
+        return UNEQUAL
+
+    if sub(a, b):
+        if len(a) == len(b):
+            return EQUAL
         return SUBLIST
-
-    if contains_list(b, a):
+    elif sub(b, a):
         return SUPERLIST
+    else:
+        return UNEQUAL
 
-    return UNEQUAL
 
-
-def contains_list(list_a, list_b):
+def sub(list_a, list_b):
+    matches = False
     i = 0
-    matching = False
-    for item in list_a:
-        if len(list_b) == 0:
-            matching = True
-            break
-        if item == list_b[i]:
-            matching = True
-            if i < len(list_b) - 1:
-                i += 1
+    for item_b in list_b:
+        if item_b == list_a[i]:
+            matches = True
+            if i >= len(list_a) - 1:
+                break
+            i += 1
         else:
-            matching = False
+            matches = False
             i = 0
 
-    if matching and i == len(list_b):
-        return True
-
-    return False
-
-
+    return matches
