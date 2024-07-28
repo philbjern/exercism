@@ -9,9 +9,6 @@ those constants (ex. the constants in the os, subprocess and re modules).
 
 You can learn more here: https://en.wikipedia.org/wiki/Enumerated_type
 """
-
-# Possible sublist categories.
-# Change the values as you see fit.
 SUBLIST = 5
 SUPERLIST = 6
 EQUAL = 1
@@ -22,33 +19,28 @@ def sublist(list_one, list_two):
     a = list_one
     b = list_two
 
-    if len(a) == 0 and len(b) == 0:
+    if equal(a, b):
         return EQUAL
-
-    if len(a) == 0 or len(b) == 0:
-        return UNEQUAL
-
-    if sub(a, b):
-        if len(a) == len(b):
-            return EQUAL
+    elif is_sublist(a, b):
         return SUBLIST
-    elif sub(b, a):
+    elif is_superlist(a, b):
         return SUPERLIST
     else:
         return UNEQUAL
 
 
-def sub(list_a, list_b):
-    matches = False
-    i = 0
-    for item_b in list_b:
-        if item_b == list_a[i]:
-            matches = True
-            if i >= len(list_a) - 1:
-                break
-            i += 1
-        else:
-            matches = False
-            i = 0
+def equal(a, b):
+    return a == b
 
-    return matches
+
+def is_sublist(a, b):
+    if len(a) > len(b):
+        return False
+    for i in range(len(b) - len(a) + 1):
+        if b[i:i+len(a)] == a:
+            return True
+    return False
+
+
+def is_superlist(a, b):
+    return is_sublist(b, a)
